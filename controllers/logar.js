@@ -7,15 +7,16 @@ module.exports = async (req, res, USERS) => {
   const { username, password } = req.body || {};
   
   if (!username || !password) {
+    console.log(username, password)
     return res.status(400).json({ error: 'username e password são necessários' });
   }
   
-  const user = USERS.find(u => u.username === username);
+  const user = USERS.find(u => u.usuario === username);
   if (!user) {
     return res.status(401).json({ error: 'Credenciais inválidas' });
   }
 
-  const senhaValida = await bcrypt.compare(password, user.password);
+  const senhaValida = await bcrypt.compare(password, user.senha);
   if(!senhaValida) return res.status(401).json({error: "Senha incorreta"});
 
   const payload = { id: user.id, username: user.username, name: user.name };
