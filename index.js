@@ -13,10 +13,10 @@ const query = util.promisify(connection.query).bind(connection);
 const app = express();
 
 async function getUsers() {
-    const res = await query("SELECT * FROM tbUsers");
+    const res = await query("SELECT * FROM usuarios");
     let users = [];
     res.forEach(element => {
-        users.push({id: element.idUser, username: element.username, password: element.passwordUser, name: element.nameUser});
+        users.push({id: element.idUsuarios, usuario: element.usuario, senha: element.senha, nome: element.nome});
     });
     return users;
 }
@@ -32,6 +32,7 @@ app.get('/api/verifica', verificaAutenticacao, (req, res) => {
   res.json({ message: 'Acesso permitido à rota protegida', user: req.user });
 });
 
-app.listen(8080, () => {
-  console.log(`Servidor rodando em http://localhost:8080`);
+app.listen(8082, async () => {
+  console.log(`Servidor rodando em http://localhost:8082`);
+  console.log(await bcrypt.hash('223344556', 10));
 });

@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loginMsg.textContent = '';
     const form = new FormData(loginForm);
     const data = {
-      username: form.get('username'),
-      password: form.get('password')
+      username: form.get('usuario'),
+      password: form.get('senha')
     };
     try {
       const res = await fetch('/api/login', {
